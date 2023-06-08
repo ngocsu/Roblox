@@ -1006,8 +1006,10 @@ function OrionLib:MakeWindow(WindowConfig)
 				local Slider = {Value = SliderConfig.Default, Save = SliderConfig.Save}
 				local Dragging = false
 				local numRound = 0
-				if tostring(SliderConfig.Increment):find(".") ~= nil then
+				if string.find(tostring(SliderConfig.Increment), ".") ~= nil then
+					print(tostring(SliderConfig.Increment))
 					local arr = string.split(tostring(SliderConfig.Increment), ".")
+					print(arr)
 					numRound = string.len(arr[2])
 				end
 
