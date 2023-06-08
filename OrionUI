@@ -1383,6 +1383,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					PlaceholderText = "Input",
 					Font = Enum.Font.GothamSemibold,
 					TextXAlignment = Enum.TextXAlignment.Center,
+					TextWrapped = true,
 					TextSize = 14,
 					ClearTextOnFocus = false
 				}), "Text")
@@ -1414,7 +1415,11 @@ function OrionLib:MakeWindow(WindowConfig)
 
 				AddConnection(TextboxActual:GetPropertyChangedSignal("Text"), function()
 					--TextContainer.Size = UDim2.new(0, TextboxActual.TextBounds.X + 16, 0, 24)
-					TweenService:Create(TextContainer, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 400, 0, 24)}):Play()
+					local width = TextboxActual.TextBounds.X + 16
+					if width > 200 then
+						width = 200
+					end
+					TweenService:Create(TextContainer, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, width, 0, 24)}):Play()
 				end)
 
 				AddConnection(TextboxActual.FocusLost, function()
