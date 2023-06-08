@@ -1010,7 +1010,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					print(tostring(SliderConfig.Increment))
 					local arr = string.split(tostring(SliderConfig.Increment), ".")
 					print(arr)
-					numRound = string.len(arr[2])
+					numRound = #arr[2]
 				end
 
 				local SliderDrag = SetChildren(SetProps(MakeElement("RoundFrame", SliderConfig.Color, 0, 5), {
