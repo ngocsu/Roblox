@@ -1358,7 +1358,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				end  
 
 				function Select:Set(Value)
-					if not table.find(Select.Options, Value) then
+					if Value == {} or not table.find(Select.Options, Value) then
 						Select.Value = {}
 						for _, v in pairs(Select.Buttons) do
 							TweenService:Create(v,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
