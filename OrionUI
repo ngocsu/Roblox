@@ -1374,7 +1374,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					end
 					
 					local strShow = ""
-
+					table.sort(Select.Value)
 					for k, v in pairs(Select.Value) do
 						strShow = strShow  .. v .. ","
 					end
