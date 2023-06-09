@@ -1294,11 +1294,12 @@ function OrionLib:MakeWindow(WindowConfig)
 							ImageColor3 = Color3.fromRGB(240, 240, 240),
 							Name = "Ico"
 						}), "TextDark"),
-						AddThemeObject(SetProps(MakeElement("Label", "Selected", 13), {
-							Size = UDim2.new(1, -40, 1, 0),
+						AddThemeObject(SetProps(MakeElement("Label", "...", 13), {
+							Size = UDim2.new(1, 200, 1, 0),
 							Font = Enum.Font.Gotham,
 							Name = "Selected",
-							TextXAlignment = Enum.TextXAlignment.Right
+							TextXAlignment = Enum.TextXAlignment.Right,
+							TextWrapped = true
 						}), "TextDark"),
 						AddThemeObject(SetProps(MakeElement("Frame"), {
 							Size = UDim2.new(1, 0, 0, 1),
@@ -1387,10 +1388,21 @@ function OrionLib:MakeWindow(WindowConfig)
 				end
 				
 				function Select:SetSelect(Values)
+				
 					for i, v in pairs(Values) do
 						TweenService:Create(Select.Buttons[v],TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
 						TweenService:Create(Select.Buttons[v].Title,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
 					end
+					
+					local strShow = ""
+					table.sort(Select.Value)
+					for k, v in pairs(Select.Value) do
+						strShow = strShow  .. v .. ","
+					end
+					if #strShow > 0 then
+						strShow = strShow:sub(1, -2)
+					end
+					SelectFrame.F.Selected.Text = strShow
 				end
 
 				AddConnection(Click.MouseButton1Click, function()
