@@ -1247,7 +1247,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				end
 				return Dropdown
 			end
-			function ElementFunction:AddMultiSelect(SelectConfig)
+			function ElementFunction:AddSelect(SelectConfig)
 				SelectConfig = SelectConfig or {}
 				SelectConfig.Name = SelectConfig.Name or "Select"
 				SelectConfig.Options = SelectConfig.Options or {}
