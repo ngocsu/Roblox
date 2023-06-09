@@ -1378,10 +1378,19 @@ function OrionLib:MakeWindow(WindowConfig)
 					for k, v in pairs(Select.Value) do
 						strShow = strShow  .. v .. ","
 					end
-					
+					if #strShow > 0 then
+						strShow = strShow:sub(1, -2)
+					end
 					SelectFrame.F.Selected.Text = strShow
 
 					return SelectConfig.Callback(Select.Value)
+				end
+				
+				function Select:SetSelect(Values)
+					for i, v in pairs(Values) do
+						TweenService:Create(Select.Buttons[v],TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+						TweenService:Create(Select.Buttons[v].Title,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+					end
 				end
 
 				AddConnection(Click.MouseButton1Click, function()
@@ -1396,7 +1405,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				end)
 
 				Select:Refresh(Select.Options, false)
-				Select:Set(Select.Value)
+				Select:SetSelect(Select.Value)
 				if SelectConfig.Flag then				
 					OrionLib.Flags[SelectConfig.Flag] = Select
 				end
