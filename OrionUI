@@ -1316,67 +1316,6 @@ function OrionLib:MakeWindow(WindowConfig)
 					MakeElement("Corner")
 				}), "Second")
 
-				AddConnection(SelectList:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-					SelectContainer.CanvasSize = UDim2.new(0, 0, 0, SelectList.AbsoluteContentSize.Y)
-				end)  
-
-				local function AddOptions(Options)
-					for _, Option in pairs(Options) do
-						local OptionBtn = AddThemeObject(SetProps(SetChildren(MakeElement("Button", Color3.fromRGB(40, 40, 40)), {
-							MakeElement("Corner", 0, 6),
-							AddThemeObject(SetProps(MakeElement("Label", Option, 13, 0.4), {
-								Position = UDim2.new(0, 8, 0, 0),
-								Size = UDim2.new(1, -8, 1, 0),
-								Name = "Title"
-							}), "Text")
-						}), {
-							Parent = SelectContainer,
-							Size = UDim2.new(1, 0, 0, 28),
-							BackgroundTransparency = 1,
-							ClipsDescendants = true
-						}), "Divider")
-
-						AddConnection(OptionBtn.MouseButton1Click, function()
-							Select:Set(Option)
-							SaveCfg(game.GameId)
-						end)
-
-						Select.Buttons[Option] = OptionBtn
-					end
-				end	
-
-				function Select:Refresh(Options, Delete)
-					if Delete then
-						for _,v in pairs(Select.Buttons) do
-							v:Destroy()
-						end    
-						table.clear(Select.Options)
-						table.clear(Select.Buttons)
-					end
-					Select.Options = Options
-					AddOptions(Select.Options)
-				end  
-
-				function Select:Set(Value)
-
-				end
-
-				AddConnection(Click.MouseButton1Click, function()
-					Select.Toggled = not Select.Toggled
-					SelectFrame.F.Line.Visible = Select.Toggled
-					TweenService:Create(SelectFrame.F.Ico,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = Select.Toggled and 180 or 0}):Play()
-					if #Select.Options > MaxElements then
-						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, 38 + (MaxElements * 28)) or UDim2.new(1, 0, 0, 38)}):Play()
-					else
-						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, SelectList.AbsoluteContentSize.Y + 38) or UDim2.new(1, 0, 0, 38)}):Play()
-					end
-				end)
-
-				Select:Refresh(Select.Options, false)
-				Select:Set(Select.Value)
-				if SelectConfig.Flag then				
-					OrionLib.Flags[SelectConfig.Flag] = Select
-				end
 				return Select
 			end
 			function ElementFunction:AddBind(BindConfig)
