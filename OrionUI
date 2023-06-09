@@ -1295,7 +1295,8 @@ function OrionLib:MakeWindow(WindowConfig)
 							Name = "Ico"
 						}), "TextDark"),
 						AddThemeObject(SetProps(MakeElement("Label", "...", 13), {
-							Size = UDim2.new(1, -40, 1, 0),
+							Position = UDim2.new(1, 200, 1, 0),
+							Size = UDim2.new(1, -240, 1, 0),
 							Font = Enum.Font.Gotham,
 							Name = "Selected",
 							TextXAlignment = Enum.TextXAlignment.Right,
