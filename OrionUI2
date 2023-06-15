@@ -650,14 +650,14 @@ function OrionLib:MakeWindow(WindowConfig)
 		UIHidden = true
 		OrionLib:MakeNotification({
 			Name = "Interface Hidden",
-			Content = "Tap LeftControl to reopen the interface",
+			Content = "Tap LeftShift to reopen the interface",
 			Time = 5
 		})
 		WindowConfig.CloseCallback()
 	end)
 
 	AddConnection(UserInputService.InputBegan, function(Input)
-		if Input.KeyCode == Enum.KeyCode.LeftControl then
+		if Input.KeyCode == Enum.KeyCode.LeftShift then
 			MainWindow.Visible = not MainWindow.Visible
 		end
 	end)
