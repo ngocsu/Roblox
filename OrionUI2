@@ -661,8 +661,8 @@ function OrionLib:MakeWindow(WindowConfig)
 			MainWindow.Visible = not MainWindow.Visible
 		end
 	end)
-
-	AddConnection(MinimizeBtn.MouseButton1Up, function()
+	
+	local function MinimizedWindowsFunc()
 		if Minimized then
 			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 615, 0, 344)}):Play()
 			MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
@@ -679,8 +679,10 @@ function OrionLib:MakeWindow(WindowConfig)
 			wait(0.1)
 			WindowStuff.Visible = false	
 		end
-		Minimized = not Minimized    
-	end)
+		Minimized = not Minimized  
+	end
+
+	AddConnection(MinimizeBtn.MouseButton1Up, MinimizedWindowsFunc())
 
 	local function LoadSequence()
 		MainWindow.Visible = false
@@ -717,7 +719,9 @@ function OrionLib:MakeWindow(WindowConfig)
 
 	if WindowConfig.IntroEnabled then
 		LoadSequence()
-	end	
+	end
+
+	MinimizedWindowsFunc()
 
 	local TabFunction = {}
 	function TabFunction:MakeTab(TabConfig)
