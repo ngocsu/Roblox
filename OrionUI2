@@ -682,7 +682,9 @@ function OrionLib:MakeWindow(WindowConfig)
 		Minimized = not Minimized  
 	end
 
-	AddConnection(MinimizeBtn.MouseButton1Up, MinimizedWindowsFunc)
+	AddConnection(MinimizeBtn.MouseButton1Up, function()
+		MinimizedWindowsFunc()
+	end)
 
 	local function LoadSequence()
 		MainWindow.Visible = false
