@@ -1382,10 +1382,10 @@ function OrionLib:MakeWindow(WindowConfig)
 					local strShow = ""
 					table.sort(Select.Value)
 					for k, v in pairs(Select.Value) do
-						strShow = strShow  .. v .. ","
+						strShow = strShow  .. v .. ", "
 					end
 					if #strShow > 0 then
-						strShow = strShow:sub(1, -2)
+						strShow = strShow:sub(1, -3)
 					end
 					SelectFrame.F.Selected.Text = strShow
 
@@ -1402,10 +1402,10 @@ function OrionLib:MakeWindow(WindowConfig)
 					local strShow = ""
 					table.sort(Values)
 					for k, v in pairs(Values) do
-						strShow = strShow  .. v .. ","
+						strShow = strShow  .. v .. ", "
 					end
 					if #strShow > 0 then
-						strShow = strShow:sub(1, -2)
+						strShow = strShow:sub(1, -3)
 					end
 					SelectFrame.F.Selected.Text = strShow
 				end
