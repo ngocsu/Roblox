@@ -1138,7 +1138,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					SearchTextboxActual
 				}), "Main")
 				
-				local DropdownContainer = AddThemeObject(SetProps(SetChildren(MakeElement("TFrame", Color3.fromRGB(40, 40, 40), 4), {
+				local DropdownContainer = AddThemeObject(SetProps(SetChildren(MakeElement("TFrame"), {
 					SearchTextContainer,
 					DropdownList
 				}), {
