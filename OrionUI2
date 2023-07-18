@@ -1155,6 +1155,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					ClipsDescendants = true
 				}), {
 					DropdownContainer,
+					TextContainer,
 					SetProps(SetChildren(MakeElement("TFrame"), {
 						AddThemeObject(SetProps(MakeElement("Label", DropdownConfig.Name, 15), {
 							Size = UDim2.new(1, -12, 1, 0),
@@ -1175,7 +1176,6 @@ function OrionLib:MakeWindow(WindowConfig)
 							Name = "Selected",
 							TextXAlignment = Enum.TextXAlignment.Right
 						}), "TextDark"),
-						TextContainer,
 						AddThemeObject(SetProps(MakeElement("Frame"), {
 							Size = UDim2.new(1, 0, 0, 1),
 							Position = UDim2.new(0, 0, 1, -1),
