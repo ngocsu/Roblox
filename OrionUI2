@@ -1112,7 +1112,9 @@ function OrionLib:MakeWindow(WindowConfig)
 					Dropdown.Value = "..."
 				end
 
-				local DropdownList = MakeElement("List")
+				local DropdownList = SetChildren(MakeElement("ScrollFrame", Color3.fromRGB(40, 40, 40), 4), {
+					MakeElement("List")
+				})
 
 				local SearchTextboxActual = AddThemeObject(Create("TextBox", {
 					Size = UDim2.new(1, 0, 1, 0),
@@ -1136,7 +1138,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					SearchTextboxActual
 				}), "Main")
 				
-				local DropdownContainer = AddThemeObject(SetProps(SetChildren(MakeElement("ScrollFrame", Color3.fromRGB(40, 40, 40), 4), {
+				local DropdownContainer = AddThemeObject(SetProps(SetChildren(MakeElement("TFrame", Color3.fromRGB(40, 40, 40), 4), {
 					SearchTextContainer,
 					DropdownList
 				}), {
@@ -1154,14 +1156,12 @@ function OrionLib:MakeWindow(WindowConfig)
 					Size = UDim2.new(1, 0, 1, 0)
 				})
 
-				
 				local DropdownFrame = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 38),
 					Parent = ItemParent,
 					ClipsDescendants = true
 				}), {
 					DropdownContainer,
-					TextboxFrame,
 					SetProps(SetChildren(MakeElement("TFrame"), {
 						AddThemeObject(SetProps(MakeElement("Label", DropdownConfig.Name, 15), {
 							Size = UDim2.new(1, -12, 1, 0),
