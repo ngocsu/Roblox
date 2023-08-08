@@ -1321,15 +1321,46 @@ function OrionLib:MakeWindow(WindowConfig)
 				local MaxElements = 5
 
 				local SelectList = MakeElement("List")
+				
+				local DropdownScrollList = AddThemeObject(SetProps(SetChildren(MakeElement("ScrollFrame", Color3.fromRGB(40, 40, 40), 4), {
+							SelectList
+						}), {
+							Position = UDim2.new(0, 0, 0, 24),
+							Size = UDim2.new(1, 0, 1, -24),
+							ClipsDescendants = true
+						}), "Divider")
+						
+				local TextboxSearchActual = Create("TextBox", {
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+					TextColor3 = Color3.fromRGB(0, 0, 0),
+					PlaceholderColor3 = Color3.fromRGB(210,210,210),
+					PlaceholderText = "Search Here",
+					Font = Enum.Font.GothamSemibold,
+					TextXAlignment = Enum.TextXAlignment.Center,
+					TextWrapped = true,
+					TextSize = 14,
+					ClearTextOnFocus = false,
+					Text = ""
+				})
 
-				local SelectContainer = AddThemeObject(SetProps(SetChildren(MakeElement("ScrollFrame", Color3.fromRGB(40, 40, 40), 4), {
-					SelectList
+				local TextContainer = SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
+					Size = UDim2.new(1, 0, 0, 24),
+					Position = UDim2.new(0, 0, 0, 0)
 				}), {
-					Parent = ItemParent,
-					Position = UDim2.new(0, 0, 0, 38),
-					Size = UDim2.new(1, 0, 1, -38),
-					ClipsDescendants = true
-				}), "Divider")
+					AddThemeObject(MakeElement("Stroke"), "Stroke"),
+					TextboxSearchActual
+				})
+				
+				local SelectContainer = SetProps(SetChildren(MakeElement("TFrame"), {
+						DropdownScrollList,
+						TextContainer
+					}), {
+						Parent = ItemParent,
+						Position = UDim2.new(0, 0, 0, 38),
+						Size = UDim2.new(1, 0, 1, -38),
+						ClipsDescendants = true
+					})
 
 				local Click = SetProps(MakeElement("Button"), {
 					Size = UDim2.new(1, 0, 1, 0)
@@ -1380,7 +1411,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				}), "Second")
 
 				AddConnection(SelectList:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-					SelectContainer.CanvasSize = UDim2.new(0, 0, 0, SelectList.AbsoluteContentSize.Y)
+					DropdownScrollList.CanvasSize = UDim2.new(0, 0, 0, SelectList.AbsoluteContentSize.Y)
 				end)  
 
 				local function AddOptions(Options)
@@ -1393,7 +1424,7 @@ function OrionLib:MakeWindow(WindowConfig)
 								Name = "Title"
 							}), "Text")
 						}), {
-							Parent = SelectContainer,
+							Parent = DropdownScrollList,
 							Size = UDim2.new(1, 0, 0, 28),
 							BackgroundTransparency = 1,
 							ClipsDescendants = true
@@ -1406,6 +1437,8 @@ function OrionLib:MakeWindow(WindowConfig)
 
 						Select.Buttons[Option] = OptionBtn
 					end
+					
+					Select:SetSelect(Select.Value)
 				end	
 
 				function Select:Refresh(Options, Delete)
@@ -1452,8 +1485,10 @@ function OrionLib:MakeWindow(WindowConfig)
 				function Select:SetSelect(Values)
 				
 					for i, v in pairs(Values) do
-						TweenService:Create(Select.Buttons[v],TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-						TweenService:Create(Select.Buttons[v].Title,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+						if Select.Buttons[v] ~= nil then
+							TweenService:Create(Select.Buttons[v],TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+							TweenService:Create(Select.Buttons[v].Title,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+						end
 					end
 					
 					local strShow = ""
@@ -1472,14 +1507,33 @@ function OrionLib:MakeWindow(WindowConfig)
 					SelectFrame.F.Line.Visible = Select.Toggled
 					TweenService:Create(SelectFrame.F.Ico,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = Select.Toggled and 180 or 0}):Play()
 					if #Select.Options > MaxElements then
-						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, 38 + (MaxElements * 28)) or UDim2.new(1, 0, 0, 38)}):Play()
+						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, 62 + (MaxElements * 28)) or UDim2.new(1, 0, 0, 38)}):Play()
 					else
-						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, SelectList.AbsoluteContentSize.Y + 38) or UDim2.new(1, 0, 0, 38)}):Play()
+						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, SelectList.AbsoluteContentSize.Y + 62) or UDim2.new(1, 0, 0, 38)}):Play()
 					end
 				end)
-
+				
+				AddConnection(TextboxSearchActual:GetPropertyChangedSignal("Text"), function()
+					local sSearchText = TextboxSearchActual.Text
+					local SearchOpt = {}
+					for index, value in pairs(Select.Options) do
+						if sSearchText == "" or string.find(string.upper(value), string.upper(sSearchText)) then
+							table.insert(SearchOpt, value)
+						end
+					end
+					for _,v in pairs(Select.Buttons) do
+						v:Destroy()
+					end
+					table.clear(Select.Buttons)
+					AddOptions(SearchOpt)
+					if #SearchOpt > MaxElements then
+						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, 62 + (MaxElements * 28)) or UDim2.new(1, 0, 0, 38)}):Play()
+					else
+						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, SelectList.AbsoluteContentSize.Y + 62) or UDim2.new(1, 0, 0, 38)}):Play()
+					end
+				end)
+				
 				Select:Refresh(Select.Options, false)
-				Select:SetSelect(Select.Value)
 				if SelectConfig.Flag then				
 					OrionLib.Flags[SelectConfig.Flag] = Select
 				end
