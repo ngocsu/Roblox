@@ -1511,6 +1511,9 @@ function OrionLib:MakeWindow(WindowConfig)
 					else
 						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, SelectList.AbsoluteContentSize.Y + 62) or UDim2.new(1, 0, 0, 38)}):Play()
 					end
+					if not Select.Toggled then
+						TextboxSearchActual.Text = ""
+					end
 				end)
 				
 				AddConnection(TextboxSearchActual:GetPropertyChangedSignal("Text"), function()
