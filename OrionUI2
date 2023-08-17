@@ -845,8 +845,9 @@ function OrionLib:MakeWindow(WindowConfig)
 				}), "Second")
 
 				AddConnection(ParagraphFrame.Content:GetPropertyChangedSignal("Text"), function()
-					ParagraphFrame.Content.Size = UDim2.new(1, -24, 0, ParagraphFrame.Content.TextBounds.Y)
-					ParagraphFrame.Size = UDim2.new(1, 0, 0, ParagraphFrame.Content.TextBounds.Y + 35)
+					local texty = ParagraphFrame.Content.TextBounds.Y
+					ParagraphFrame.Content.Size = UDim2.new(1, -24, 0, texty)
+					ParagraphFrame.Size = UDim2.new(1, 0, 0, texty + 35)
 				end)
 
 				ParagraphFrame.Content.Text = Content
