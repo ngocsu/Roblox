@@ -657,7 +657,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	end)
 
 	AddConnection(UserInputService.InputBegan, function(Input)
-		if Input.KeyCode == Enum.KeyCode.Z then
+		if Input.KeyCode == Enum.KeyCode.Z and not UserInputService:GetFocusedTextBox() then
 			MainWindow.Visible = not MainWindow.Visible
 		end
 	end)
