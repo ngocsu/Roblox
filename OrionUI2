@@ -229,17 +229,6 @@ local function LoadCfg(Config)
 end
 
 local function SaveCfg(Name)
-	local Data = {}
-	for i,v in pairs(OrionLib.Flags) do
-		if v.Save then
-			if v.Type == "Colorpicker" then
-				Data[i] = PackColor(v.Value)
-			else
-				Data[i] = v.Value
-			end
-		end	
-	end
-	writefile(OrionLib.Folder .. "/" .. Name .. ".txt", tostring(HttpService:JSONEncode(Data)))
 end
 
 local WhitelistedMouse = {Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3}
@@ -1226,6 +1215,10 @@ function OrionLib:MakeWindow(WindowConfig)
 						end)
 
 						Dropdown.Buttons[Option] = OptionBtn
+					end
+					
+					if Dropdown.Value and Dropdown.Value ~= "" then
+						Dropdown:Set(Dropdown.Value)
 					end
 				end	
 
