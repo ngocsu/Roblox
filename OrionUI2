@@ -1205,6 +1205,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				
 				local function AddOptions(Options)
 					for _, Option in pairs(Options) do
+						print(Option)
 						local OptionBtn = AddThemeObject(SetProps(SetChildren(MakeElement("Button", Color3.fromRGB(40, 40, 40)), {
 							MakeElement("Corner", 0, 6),
 							AddThemeObject(SetProps(MakeElement("Label", Option, 13, 0.4), {
