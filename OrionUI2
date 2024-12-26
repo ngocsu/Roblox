@@ -1227,7 +1227,6 @@ function OrionLib:MakeWindow(WindowConfig)
 
 						Dropdown.Buttons[Option] = OptionBtn
 					end
-					Dropdown:Set(Dropdown.Value)
 				end	
 
 				function Dropdown:Refresh(Options, Delete)
