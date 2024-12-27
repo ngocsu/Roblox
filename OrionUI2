@@ -710,6 +710,8 @@ function OrionLib:MakeWindow(WindowConfig)
 		LoadSequence()
 	end
 
+	MinimizedWindowsFunc()
+
 	local TabFunction = {}
 	function TabFunction:MakeTab(TabConfig)
 		TabConfig = TabConfig or {}
