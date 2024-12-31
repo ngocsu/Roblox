@@ -46,7 +46,8 @@ end
 
 local Orion = Instance.new("ScreenGui")
 Orion.Name = "Orion"
-Orion.ZIndexBehavior=1
+Orion.ZIndexBehavior = 1
+Orion.DisplayOrder = 1000000
 if syn then
 	syn.protect_gui(Orion)
 	Orion.Parent = game.CoreGui
