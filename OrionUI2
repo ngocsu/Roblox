@@ -1220,6 +1220,7 @@ function OrionLib:MakeWindow(WindowConfig)
 						for _,v in pairs(Dropdown.Buttons) do
 							v:Destroy()
 						end
+						table.clear(Dropdown.Buttons)
 					end
 					Dropdown.Options = Options
 					AddOptions(Dropdown.Options)
@@ -1275,6 +1276,8 @@ function OrionLib:MakeWindow(WindowConfig)
 					for _,v in pairs(Dropdown.Buttons) do
 						v:Destroy()
 					end
+					table.clear(Dropdown.Buttons)
+					
 					AddOptions(SearchOpt)
 					if #SearchOpt > MaxElements then
 						TweenService:Create(DropdownFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Dropdown.Toggled and UDim2.new(1, 0, 0, 62 + (MaxElements * 28)) or UDim2.new(1, 0, 0, 38)}):Play()
@@ -1427,7 +1430,9 @@ function OrionLib:MakeWindow(WindowConfig)
 					if Delete then
 						for _,v in pairs(Select.Buttons) do
 							v:Destroy()
-						end    
+						end
+						print(#Select.Buttons)
+						table.clear(Select.Buttons)
 					end
 					Select.Options = Options
 					AddOptions(Select.Options)
@@ -1507,6 +1512,9 @@ function OrionLib:MakeWindow(WindowConfig)
 					for _,v in pairs(Select.Buttons) do
 						v:Destroy()
 					end
+					print(#Select.Buttons)
+					table.clear(Select.Buttons)
+					
 					AddOptions(SearchOpt)
 					if #SearchOpt > MaxElements then
 						TweenService:Create(SelectFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Select.Toggled and UDim2.new(1, 0, 0, 62 + (MaxElements * 28)) or UDim2.new(1, 0, 0, 38)}):Play()
