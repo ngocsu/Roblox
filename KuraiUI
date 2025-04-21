@@ -1202,7 +1202,11 @@ function Kurai_Lib:_createToggle(tabName, props, flag)
 			return state
 		end
 	}
-
+	
+	if props.Callback then
+		props.Callback(state, toggle)
+	end
+	
 	return control
 end
 
@@ -1337,7 +1341,6 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 	optionsPadding.PaddingLeft = UDim.new(0, 2)
 	optionsPadding.PaddingRight = UDim.new(0, 2)
 	optionsPadding.Parent = optionsList
-
 
 	self.Flags = self.Flags or {}
 	self.Flags[flag or props.Text or "Dropdown"] = selectedOption
