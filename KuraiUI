@@ -652,8 +652,8 @@ function Kurai_Lib:_internal_createmainwindow(options)
 	self:InitTabs(options.Tabs or {"Main", "Visuals", "Settings"})
 
 	-- [ toggle key ]
-	UserInputService.InputBegan:Connect(function(input, gpe)
-		if not gpe and input.KeyCode == Kurai_Lib.Settings.ToggleKey then
+	UserInputService.InputBegan:Connect(function(input)
+		if input.KeyCode == Kurai_Lib.Settings.ToggleKey and not UserInputService:GetFocusedTextBox()  then
 			self:ToggleUI()
 		end
 	end)
