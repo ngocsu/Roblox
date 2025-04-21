@@ -665,7 +665,9 @@ function Kurai_Lib:_internal_createmainwindow(options)
 	self.MinimizeButton.MouseButton1Click:Connect(function()
 		self:MinimizedWindowsFunc()
 	end)
-	
+	if options.MinimizeOnLoad then
+		self:MinimizedWindowsFunc()
+	end
 	-- [ make draggable ]
 	self:Draggable(self.MainWindow, self.TitleBar)
 end
