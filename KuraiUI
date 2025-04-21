@@ -1164,7 +1164,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 		local absPos = selectionButton.AbsolutePosition
 		local absSize = selectionButton.AbsoluteSize
 
-		optionsFrame.Position = UDim2.new(0, absPos.X, 0, absPos.Y + absSize.Y + 5)
+		optionsFrame.Position = UDim2.new(0, 0, 0, 60)
 		optionsFrame.Size = UDim2.new(0, absSize.X, 0, targetHeight)
 		return absSize, targetHeight
 	end
