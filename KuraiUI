@@ -1087,14 +1087,14 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 	arrowIcon.Parent = selectionButton
 
 	local optionsFrame = Instance.new("Frame")
-	optionsFrame.Name = "DropdownOptions_" .. (props.Text or "Dropdown")
+	optionsFrame.Name = "DropdownOptions"
 	optionsFrame.BackgroundColor3 = Kurai_Lib.Theme.Content
 	optionsFrame.BorderSizePixel = 0
 	optionsFrame.Size = UDim2.new(0, 0, 0, 0)
 	optionsFrame.Visible = false
 	optionsFrame.ZIndex = 10
 	optionsFrame.ClipsDescendants = true
-	-- [ don't parent yet - will parent dynamically when shown ]
+	optionsFrame.Parent = dropdown
 
 	local optionsCorner = Instance.new("UICorner")
 	optionsCorner.CornerRadius = UDim.new(0, 3)
@@ -1275,7 +1275,6 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 			createOptions("")
 			local absSize, targetHeight = UpdateFrameSize()
 
-			optionsFrame.Parent = self.ScreenGui
 			optionsFrame.Visible = true
 			
 			Kurai_Lib.Tween(optionsFrame, {Size = UDim2.new(0, absSize.X, 0, targetHeight)}, 0.2)
