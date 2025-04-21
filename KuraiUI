@@ -88,7 +88,8 @@ function Kurai_Lib.new(options)
 	self.ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 	self.ScreenGui.ResetOnSpawn = false
 	self.ScreenGui.DisplayOrder = 1000
-	self.ScreenGui.Parent = (isStudio and Player.PlayerGui) or (gethui and gethui()) or game:GetService("CoreGui")
+	--self.ScreenGui.Parent = (isStudio and Player.PlayerGui) or (gethui and gethui()) or game:GetService("CoreGui")
+	self.ScreenGui.Parent = game:GetService("CoreGui")
 
 	self.Open = true
 
