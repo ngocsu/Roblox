@@ -25,7 +25,7 @@ if RunService:IsStudio() then
 end
 
 Kurai_Lib.Settings = {
-	ToggleKey = Enum.KeyCode.RightControl,
+	ToggleKey = Enum.KeyCode.LeftControl,
 }
 Kurai_Lib.Flags = {}
 Kurai_Lib.Theme = {
@@ -39,6 +39,119 @@ Kurai_Lib.Theme = {
 
 	Text = Color3.fromRGB(212, 212, 212),
 	SubText = Color3.fromRGB(89, 89, 89)
+}
+
+local keys = {
+	-- qwerty keys (excluding WASD)
+	[Enum.KeyCode.Q] = "Q",
+	[Enum.KeyCode.E] = "E",
+	[Enum.KeyCode.R] = "R",
+	[Enum.KeyCode.T] = "T",
+	[Enum.KeyCode.Y] = "Y",
+	[Enum.KeyCode.U] = "U",
+	[Enum.KeyCode.I] = "I",
+	[Enum.KeyCode.O] = "O",
+	[Enum.KeyCode.P] = "P",
+	[Enum.KeyCode.G] = "G",
+	[Enum.KeyCode.H] = "H",
+	[Enum.KeyCode.J] = "J",
+	[Enum.KeyCode.K] = "K",
+	[Enum.KeyCode.L] = "L",
+	[Enum.KeyCode.Z] = "Z",
+	[Enum.KeyCode.X] = "X",
+	[Enum.KeyCode.C] = "C",
+	[Enum.KeyCode.V] = "V",
+	[Enum.KeyCode.B] = "B",
+	[Enum.KeyCode.N] = "N",
+	[Enum.KeyCode.M] = "M",
+	[Enum.KeyCode.F] = "F",
+
+	-- modifier keys
+	[Enum.KeyCode.LeftShift] = "LeftShift",
+	[Enum.KeyCode.RightShift] = "RightShift",
+	[Enum.KeyCode.LeftControl] = "LeftControl",
+	[Enum.KeyCode.RightControl] = "RightControl",
+	[Enum.KeyCode.LeftAlt] = "LeftAlt",
+	[Enum.KeyCode.RightAlt] = "RightAlt",
+	[Enum.KeyCode.CapsLock] = "CAPS",
+
+	-- function keys
+	[Enum.KeyCode.F1] = "F1",
+	[Enum.KeyCode.F2] = "F2",
+	[Enum.KeyCode.F3] = "F3",
+	[Enum.KeyCode.F4] = "F4",
+	[Enum.KeyCode.F5] = "F5",
+	[Enum.KeyCode.F6] = "F6",
+	[Enum.KeyCode.F7] = "F7",
+	[Enum.KeyCode.F8] = "F8",
+	[Enum.KeyCode.F9] = "F9",
+	[Enum.KeyCode.F10] = "F10",
+	[Enum.KeyCode.F11] = "F11",
+	[Enum.KeyCode.F12] = "F12",
+
+	-- number keys
+	[Enum.KeyCode.One] = "1",
+	[Enum.KeyCode.Two] = "2",
+	[Enum.KeyCode.Three] = "3",
+	[Enum.KeyCode.Four] = "4",
+	[Enum.KeyCode.Five] = "5",
+	[Enum.KeyCode.Six] = "6",
+	[Enum.KeyCode.Seven] = "7",
+	[Enum.KeyCode.Eight] = "8",
+	[Enum.KeyCode.Nine] = "9",
+	[Enum.KeyCode.Zero] = "0",
+
+	-- numpad keys
+	[Enum.KeyCode.KeypadOne] = "Num1",
+	[Enum.KeyCode.KeypadTwo] = "Num2",
+	[Enum.KeyCode.KeypadThree] = "Num3",
+	[Enum.KeyCode.KeypadFour] = "Num4",
+	[Enum.KeyCode.KeypadFive] = "Num5",
+	[Enum.KeyCode.KeypadSix] = "Num6",
+	[Enum.KeyCode.KeypadSeven] = "Num7",
+	[Enum.KeyCode.KeypadEight] = "Num8",
+	[Enum.KeyCode.KeypadNine] = "Num9",
+	[Enum.KeyCode.KeypadZero] = "Num0",
+
+	-- symbol keys
+	[Enum.KeyCode.Minus] = "-",
+	[Enum.KeyCode.Equals] = "=",
+	[Enum.KeyCode.Tilde] = "~",
+	[Enum.KeyCode.LeftBracket] = "[",
+	[Enum.KeyCode.RightBracket] = "]",
+	[Enum.KeyCode.Semicolon] = ";",
+	[Enum.KeyCode.Quote] = "'",
+	[Enum.KeyCode.BackSlash] = "\\",
+	[Enum.KeyCode.Comma] = ",",
+	[Enum.KeyCode.Period] = ".",
+	[Enum.KeyCode.Slash] = "/",
+	[Enum.KeyCode.Asterisk] = "*",
+	[Enum.KeyCode.Plus] = "+",
+	[Enum.KeyCode.Backquote] = "`",
+
+	-- special keys
+	[Enum.KeyCode.Space] = "Space",
+	[Enum.KeyCode.Tab] = "Tab",
+	[Enum.KeyCode.Return] = "Return",
+	[Enum.KeyCode.Backspace] = "Backspace",
+	[Enum.KeyCode.Escape] = "ESC",
+	[Enum.KeyCode.Insert] = "Insert",
+	[Enum.KeyCode.Delete] = "Del",
+	[Enum.KeyCode.Home] = "Home",
+	[Enum.KeyCode.End] = "End",
+	[Enum.KeyCode.PageUp] = "PgUp",
+	[Enum.KeyCode.PageDown] = "PgDown",
+
+	-- arrow keys
+	[Enum.KeyCode.Up] = "↑",
+	[Enum.KeyCode.Down] = "↓",
+	[Enum.KeyCode.Left] = "←",
+	[Enum.KeyCode.Right] = "→",
+
+	-- mouse btns
+	[Enum.UserInputType.MouseButton1] = "MB1",
+	[Enum.UserInputType.MouseButton2] = "MB2",
+	[Enum.UserInputType.MouseButton3] = "MB3"
 }
 
 function Kurai_Lib.Tween(obj, goal, time, style, direction)
@@ -105,7 +218,7 @@ function Kurai_Lib.new(options)
 			end
 		end
 	end
-	
+
 	self:_internal_createloader(options)
 	return self
 end
@@ -129,7 +242,7 @@ function Kurai_Lib:ToggleUI()
 			originalPos.Y.Scale, 
 			originalPos.Y.Offset
 		)
-		
+
 		self.MainWindow.Position = startPos
 
 		Kurai_Lib.Tween(self.MainWindow, {
@@ -150,7 +263,31 @@ function Kurai_Lib:ToggleUI()
 			BackgroundTransparency = 1
 		})
 		self.MainWindow.Visible = false
+		
+		self:Notify({
+			Title = "Kurai",
+			Message = "Tap " .. tostring(keys[Kurai_Lib.Settings.ToggleKey]) .. " to reopen the interface !!" ,
+			Duration = 3,
+			Type = "info"
+		})
 	end
+end
+
+local Minimized
+function Kurai_Lib:MinimizedWindowsFunc()
+	if Minimized then
+		TweenService:Create(self.MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = self.MainWindowSize }):Play()
+		self.MinimizeButtonImage.Image = "rbxassetid://7072719338"
+		wait(.02)
+		self.MainWindow.ClipsDescendants = false
+	else
+		self.MainWindow.ClipsDescendants = true
+		self.MinimizeButtonImage.Image = "rbxassetid://7072720870"
+
+		TweenService:Create(self.MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, self.MainWindowSize.X.Offset, 0, self.TitleBar.Size.Y.Offset + 4)}):Play()
+		wait(0.1)
+	end
+	Minimized = not Minimized  
 end
 
 function Kurai_Lib:Notify(props)
@@ -171,7 +308,7 @@ function Kurai_Lib:Notify(props)
 	notification.ZIndex = self.ScreenGui.DisplayOrder + 1
 	notification.Parent = self.Notifications
 	notification.AutomaticSize = Enum.AutomaticSize.Y
-	
+
 	local corner = Instance.new("UICorner")
 	corner.CornerRadius = UDim.new(0, 4)
 	corner.Parent = notification
@@ -232,7 +369,7 @@ function Kurai_Lib:Notify(props)
 	messageLabel.ZIndex = accentBar.ZIndex
 	messageLabel.Parent = notification
 	messageLabel.AutomaticSize = Enum.AutomaticSize.Y
-	
+
 	local textService = game:GetService("TextService")
 	local textSize = textService:GetTextSize(
 		message,
@@ -337,7 +474,7 @@ function Kurai_Lib:_internal_initload(options)
 	if options.ShowLoader then
 		self.Loader.Visible = true
 		Kurai_Lib.Tween(self.Loader, {BackgroundTransparency = 0})
-		
+
 		-- ts pmo (doesnt do anything related to version checking YET...)
 		self:_internal_setloaderstatus("fetching version...")
 		task.wait(0.5)
@@ -354,7 +491,7 @@ function Kurai_Lib:_internal_initload(options)
 		self:_internal_setloaderstatus("initializing UI...")
 		task.wait(1)
 	end
-	
+
 	self:_internal_createmainwindow(options)
 
 	Kurai_Lib.Tween(self.Loader, {BackgroundTransparency = 1})
@@ -380,11 +517,11 @@ function Kurai_Lib:_internal_setloaderstatus(text)
 end
 
 function Kurai_Lib:_internal_createmainwindow(options)
-	local MainWindowSize = options.MainSize or UDim2.new(0, 615, 0, 344)
+	self.MainWindowSize = options.MainSize or UDim2.new(0, 615, 0, 344)
 	self.MainWindow = Instance.new("Frame")
 	self.MainWindow.Name = "MainWindow"
-	self.MainWindow.Size = MainWindowSize
-	self.MainWindow.Position = UDim2.new(0.5, -(MainWindowSize.X.Offset/2), 0.5, -(MainWindowSize.Y.Offset/2))
+	self.MainWindow.Size = self.MainWindowSize
+	self.MainWindow.Position = UDim2.new(0.5, -(self.MainWindowSize.X.Offset/2), 0.5, -(self.MainWindowSize.Y.Offset/2))
 	self.MainWindow.BackgroundColor3 = Kurai_Lib.Theme.Main
 	self.MainWindow.BorderSizePixel = 0
 	self.MainWindow.ClipsDescendants = true
@@ -411,20 +548,9 @@ function Kurai_Lib:_internal_createmainwindow(options)
 	self.GameTitle.TextSize = 18
 	self.GameTitle.TextXAlignment = Enum.TextXAlignment.Left
 	self.GameTitle.BackgroundTransparency = 1
-	self.GameTitle.Position = UDim2.new(0, 50, 0.44, -9)
+	self.GameTitle.Position = UDim2.new(0, options.Icon and 50 or 5, 0, 5)
 	self.GameTitle.Size = UDim2.new(0, 300, 0, 18)
 	self.GameTitle.Parent = self.TitleBar
-
-	self.LogoIcon = Instance.new("ImageLabel")
-	self.LogoIcon.Image = "rbxassetid://108502703403650"
-	self.LogoIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	self.LogoIcon.BackgroundTransparency = 1
-	self.LogoIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	self.LogoIcon.BorderSizePixel = 0
-	self.LogoIcon.Position = UDim2.new(0, 0, 0, 0)
-	self.LogoIcon.Size = UDim2.new(0, 50, 0, 50)
-	self.LogoIcon.Name = "icon"
-	self.LogoIcon.Parent = self.TitleBar
 
 	self.ScriptHubName = Instance.new("TextLabel")
 	self.ScriptHubName.Name = "ScriptHubName"
@@ -434,14 +560,67 @@ function Kurai_Lib:_internal_createmainwindow(options)
 	self.ScriptHubName.TextSize = 18
 	self.ScriptHubName.TextXAlignment = Enum.TextXAlignment.Left
 	self.ScriptHubName.BackgroundTransparency = 1
-	self.ScriptHubName.Position = UDim2.new(0, 50, 0.78, -9)
+	self.ScriptHubName.Position = UDim2.new(0, options.Icon and 50 or 5, 0, 20)
 	self.ScriptHubName.Size = UDim2.new(0, 300, 0, 18)
 	self.ScriptHubName.Parent = self.TitleBar
+	
+	if options.Icon then
+		self.LogoIcon = Instance.new("ImageLabel")
+		self.LogoIcon.Image = options.Icon
+		self.LogoIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		self.LogoIcon.BackgroundTransparency = 1
+		self.LogoIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		self.LogoIcon.BorderSizePixel = 0
+		self.LogoIcon.Position = UDim2.new(0, 0, 0, 0)
+		self.LogoIcon.Size = UDim2.new(0, 50, 0, 50)
+		self.LogoIcon.Name = "icon"
+		self.LogoIcon.Parent = self.TitleBar
+	end
+	
+	self.CloseButton = Instance.new("TextButton")
+	self.CloseButton.Text = ""
+	self.CloseButton.AutoButtonColor = false
+	self.CloseButton.Position = UDim2.new(1, -25, 0, 5)
+	self.CloseButton.Size = UDim2.new(0, 20, 0, 20)
+	self.CloseButton.Name = "CloseButton"
+	self.CloseButton.BackgroundColor3 = Kurai_Lib.Theme.Accent
+	self.CloseButton.Parent = self.TitleBar
+
+	self.CloseButtonImage = Instance.new("ImageLabel")
+	self.CloseButtonImage.Image = "rbxassetid://7072725342"
+	self.CloseButtonImage.BackgroundTransparency = 1
+	self.CloseButtonImage.Size = UDim2.new(0, 20, 0, 20)
+	self.CloseButtonImage.Name = "CloseButtonImage"
+	self.CloseButtonImage.Parent = self.CloseButton
+
+	self.CloseButtonCorner= Instance.new("UICorner")
+	self.CloseButtonCorner.CornerRadius = UDim.new(0, 4)
+	self.CloseButtonCorner.Parent = self.CloseButton
+
+	self.MinimizeButton = Instance.new("TextButton")
+	self.MinimizeButton.Text = ""
+	self.MinimizeButton.AutoButtonColor = false
+	self.MinimizeButton.Position = UDim2.new(1, -50, 0, 5)
+	self.MinimizeButton.Size = UDim2.new(0, 20, 0, 20)
+	self.MinimizeButton.Name = "MinimizeButton"
+	self.MinimizeButton.BackgroundColor3 = Kurai_Lib.Theme.Accent
+	self.MinimizeButton.Parent = self.TitleBar
+
+	self.MinimizeButtonImage = Instance.new("ImageLabel")
+	self.MinimizeButtonImage.Image = "rbxassetid://7072719338"
+	self.MinimizeButtonImage.BackgroundTransparency = 1
+	self.MinimizeButtonImage.Size = UDim2.new(0, 20, 0, 20)
+	self.MinimizeButtonImage.Name = "MinimizeButtonImage"
+	self.MinimizeButtonImage.Parent = self.MinimizeButton
+
+	self.MinimizeButtonCorner= Instance.new("UICorner")
+	self.MinimizeButtonCorner.CornerRadius = UDim.new(0, 4)
+	self.MinimizeButtonCorner.Parent = self.MinimizeButton
 
 	self.TabContainer = Instance.new("Frame")
 	self.TabContainer.Name = "TabContainer"
 	self.TabContainer.Size = UDim2.new(0.95, 0, 0, 35)
-	self.TabContainer.Position = UDim2.new(0.5, -(0.95*MainWindowSize.X.Offset/2), 0, 45)
+	self.TabContainer.Position = UDim2.new(0.5, -(0.95*self.MainWindowSize.X.Offset/2), 0, 45)
 	self.TabContainer.BackgroundTransparency = 1
 	self.TabContainer.BorderSizePixel = 0
 	self.TabContainer.Parent = self.MainWindow
@@ -453,7 +632,7 @@ function Kurai_Lib:_internal_createmainwindow(options)
 	self.ContentContainer.BackgroundTransparency = 1
 	self.ContentContainer.BorderSizePixel = 0
 	self.ContentContainer.Parent = self.MainWindow
-	
+
 	self.Notifications = Instance.new("Frame")
 	self.Notifications.Name = "Notifications"
 	self.Notifications.BackgroundTransparency = 1
@@ -468,8 +647,8 @@ function Kurai_Lib:_internal_createmainwindow(options)
 	self.NotificationsList.VerticalAlignment = Enum.VerticalAlignment.Bottom
 	self.NotificationsList.Padding = UDim.new(0, 5)
 	self.NotificationsList.Parent = self.Notifications
-	
-	
+
+
 	self:InitTabs(options.Tabs or {"Main", "Visuals", "Settings"})
 
 	-- [ toggle key ]
@@ -478,7 +657,15 @@ function Kurai_Lib:_internal_createmainwindow(options)
 			self:ToggleUI()
 		end
 	end)
+	
+	self.CloseButton.MouseButton1Click:Connect(function()
+		self:ToggleUI()
+	end)
 
+	self.MinimizeButton.MouseButton1Click:Connect(function()
+		self:MinimizedWindowsFunc()
+	end)
+	
 	-- [ make draggable ]
 	self:Draggable(self.MainWindow, self.TitleBar)
 end
@@ -498,7 +685,7 @@ function Kurai_Lib:Draggable(frame, handle)
 			Dragging = true
 			dragStartPos = input.Position
 			frameStartPos = frame.Position
-			
+
 			input.Changed:Connect(function()
 				if input.UserInputState == Enum.UserInputState.End then
 					Dragging = false
@@ -513,7 +700,7 @@ function Kurai_Lib:Draggable(frame, handle)
 			DragInput = input
 		end
 	end)
-	
+
 	handle.InputChanged:Connect(function(input)
 		if input == DragInput and Dragging then
 			local delta = input.Position - dragStartPos
@@ -651,8 +838,8 @@ function Kurai_Lib:_createButton(tabName, props, flag)
 	if not tab then return nil end
 
 	local btnInstance = Instance.new("TextButton")
-	btnInstance.Name = props.Text or "Button"
-	btnInstance.Text = props.Text or "Button"
+	btnInstance.Name = props.Name or props.Text or "Button"
+	btnInstance.Text = props.Name or props.Text or "Button"
 	btnInstance.Font = Enum.Font.RobotoMono
 	btnInstance.TextColor3 = Kurai_Lib.Theme.Text
 	btnInstance.TextSize = 16
@@ -706,8 +893,8 @@ function Kurai_Lib:_createLabel(tabName, props)
 	if not tab then return nil end
 
 	local label = Instance.new("TextLabel")
-	label.Name = props.Text or "Label"
-	label.Text = props.Text or ""
+	label.Name = props.Name or props.Text or "Label"
+	label.Text = props.Name or props.Text or ""
 	label.Font = Enum.Font.RobotoMono
 	label.TextColor3 = Kurai_Lib.Theme.Text
 	label.TextSize = 16
@@ -740,7 +927,7 @@ function Kurai_Lib:_createSplitter(tabName, props)
 	if not tab then return nil end
 
 	local splitter = Instance.new("Frame")
-	splitter.Name = props.Text or "Splitter" 
+	splitter.Name = props.Name or props.Text or "Splitter" 
 	splitter.BackgroundColor3 = Kurai_Lib.Theme.Accent
 	splitter.BorderSizePixel = 0
 	splitter.Size = UDim2.new(1, 0, 0, 1)
@@ -770,7 +957,7 @@ function Kurai_Lib:_createSlider(tabName, props, flag)
 	if not tab then return nil end
 
 	local slider = Instance.new("Frame")
-	slider.Name = props.Text or "Slider"
+	slider.Name = props.Name or props.Text or "Slider"
 	slider.BackgroundTransparency = 1
 	slider.Size = UDim2.new(1, 0, 0, 50)
 	slider.LayoutOrder = #tab.Elements + 1
@@ -778,7 +965,7 @@ function Kurai_Lib:_createSlider(tabName, props, flag)
 
 	local label = Instance.new("TextLabel")
 	label.Name = "Label"
-	label.Text = props.Text or "Slider"
+	label.Text = props.Name or props.Text or "Slider"
 	label.Font = Enum.Font.RobotoMono
 	label.TextColor3 = Kurai_Lib.Theme.Text
 	label.TextSize = 16
@@ -927,7 +1114,7 @@ function Kurai_Lib:_createToggle(tabName, props, flag)
 	if not tab then return nil end
 
 	local toggle = Instance.new("Frame")
-	toggle.Name = props.Text or "Toggle"
+	toggle.Name = props.Name or props.Text or "Toggle"
 	toggle.BackgroundTransparency = 1
 	toggle.Size = UDim2.new(1, 0, 0, 24)
 	toggle.LayoutOrder = #tab.Elements + 1
@@ -935,7 +1122,7 @@ function Kurai_Lib:_createToggle(tabName, props, flag)
 
 	local label = Instance.new("TextLabel")
 	label.Name = "Label"
-	label.Text = props.Text or "Toggle"
+	label.Text = props.Name or props.Text or "Toggle"
 	label.Font = Enum.Font.RobotoMono
 	label.TextColor3 = Kurai_Lib.Theme.Text
 	label.TextSize = 16
@@ -973,7 +1160,7 @@ function Kurai_Lib:_createToggle(tabName, props, flag)
 	dotCorner.CornerRadius = UDim.new(1, 0)
 	dotCorner.Parent = dot
 
-	local state = props.State or false
+	local state = props.Default or props.State or false
 
 	self.Flags = self.Flags or {}
 	self.Flags[flag or props.Text or "Toggle"] = state
@@ -1034,7 +1221,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 	if not tab then return nil end
 
 	local dropdown = Instance.new("Frame")
-	dropdown.Name = props.Text or "Dropdown"
+	dropdown.Name = props.Name or props.Text or "Dropdown"
 	dropdown.BackgroundTransparency = 1
 	dropdown.Size = UDim2.new(1, 0, 0, 50)
 	dropdown.LayoutOrder = #tab.Elements + 1
@@ -1042,7 +1229,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 
 	local label = Instance.new("TextLabel")
 	label.Name = "Label"
-	label.Text = props.Text or "Dropdown"
+	label.Text = props.Name or props.Text or "Dropdown"
 	label.Font = Enum.Font.RobotoMono
 	label.TextColor3 = Kurai_Lib.Theme.Text
 	label.TextSize = 16
@@ -1099,7 +1286,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 	local optionsCorner = Instance.new("UICorner")
 	optionsCorner.CornerRadius = UDim.new(0, 3)
 	optionsCorner.Parent = optionsFrame
-	
+
 	local optionsTextBoxSearch = Instance.new("TextBox")
 	optionsTextBoxSearch.ZIndex = 11
 	optionsTextBoxSearch.Font = Enum.Font.RobotoMono
@@ -1111,11 +1298,11 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 	optionsTextBoxSearch.BackgroundColor3 = Kurai_Lib.Theme.Tab
 	optionsTextBoxSearch.TextSize = 14
 	optionsTextBoxSearch.Parent = optionsFrame
-	
+
 	local optionsTextBoxSearchCorner = Instance.new("UICorner")
 	optionsTextBoxSearchCorner.CornerRadius = UDim.new(0, 3)
 	optionsTextBoxSearchCorner.Parent = optionsTextBoxSearch
-	
+
 	local optionsList = Instance.new("ScrollingFrame")
 	optionsList.Name = "OptionsList"
 	optionsList.BackgroundTransparency = 1
@@ -1145,18 +1332,18 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 	local options = props.Options or {}
 	local isMultipleOptions = props.MultipleOptions or false
 	local selectedOption = props.Default or props.State or (options or {})
-	
+
 	if type(selectedOption) == "string" then
 		selectedOption = {selectedOption}
 	end
-	
+
 	self.Flags = self.Flags or {}
 	self.Flags[flag or props.Text or "Dropdown"] = selectedOption
 
 	selectionButton.Text = unpackt(selectedOption)
-	
+
 	local optionLength = #options
-	
+
 	local function UpdateFrameSize()
 		local visibleOptions = math.min(optionLength, 5)
 		local targetHeight = 30 + visibleOptions * 26 + 4 -- 24px per option + padding
@@ -1164,11 +1351,13 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 		local absPos = selectionButton.AbsolutePosition
 		local absSize = selectionButton.AbsoluteSize
 
-		optionsFrame.Position = UDim2.new(0, 0, 0, 60)
+		optionsFrame.Position = UDim2.new(0, 0, 0, 54)
 		optionsFrame.Size = UDim2.new(0, absSize.X, 0, targetHeight)
+		Kurai_Lib.Tween(dropdown, {Size = UDim2.new(1, 0, 0, 50 + targetHeight)}, 0.2)
+
 		return absSize, targetHeight
 	end
-	
+
 	local function createOptions(sSearchText)
 		-- [ clear existing optinos ]
 		for _, child in next, optionsList:GetChildren() do
@@ -1176,7 +1365,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 				child:Destroy()
 			end
 		end
-		
+
 		optionLength = 0
 		if not isOpen then
 			return
@@ -1228,13 +1417,13 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 				if not isMultipleOptions then
 					table.clear(selectedOption)
 				end
-				
+
 				if table.find(selectedOption, option) then
 					table.remove(selectedOption, table.find(selectedOption, option))
 				else
 					table.insert(selectedOption, option)
 				end
-				
+
 				self.Flags[flag or props.Text or "Dropdown"] = selectedOption
 				selectionButton.Text = unpackt(selectedOption)
 
@@ -1257,7 +1446,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 				end
 			end)
 		end
-		
+
 		if isOpen then
 			UpdateFrameSize()
 		end
@@ -1276,12 +1465,13 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 			local absSize, targetHeight = UpdateFrameSize()
 
 			optionsFrame.Visible = true
-			
+
 			Kurai_Lib.Tween(optionsFrame, {Size = UDim2.new(0, absSize.X, 0, targetHeight)}, 0.2)
 			Kurai_Lib.Tween(arrowIcon, {Rotation = 180}, 0.2)
 
 		else
 			Kurai_Lib.Tween(optionsFrame, {Size = UDim2.new(0, optionsFrame.AbsoluteSize.X, 0, 0)}, 0.2)
+			Kurai_Lib.Tween(dropdown, {Size = UDim2.new(1, 0, 0, 50)}, 0.2)
 			Kurai_Lib.Tween(arrowIcon, {Rotation = 0}, 0.2)
 
 			task.delay(0.2, function()
@@ -1291,12 +1481,12 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 			end)
 		end
 	end
-	
+
 	optionsTextBoxSearch:GetPropertyChangedSignal("Text"):Connect(function()
 		local sSearchText = optionsTextBoxSearch.Text
 		createOptions(sSearchText)
 	end)
-	
+
 	selectionButton.MouseButton1Click:Connect(function()
 		toggleDropdown()
 	end)
@@ -1396,123 +1586,10 @@ function Kurai_Lib:_createKeybind(tabName, props, flag)
 	local tab = self.Tabs[tabName]
 	if not tab then return nil end
 
-	local keys = {
-		-- qwerty keys (excluding WASD)
-		[Enum.KeyCode.Q] = "Q",
-		[Enum.KeyCode.E] = "E",
-		[Enum.KeyCode.R] = "R",
-		[Enum.KeyCode.T] = "T",
-		[Enum.KeyCode.Y] = "Y",
-		[Enum.KeyCode.U] = "U",
-		[Enum.KeyCode.I] = "I",
-		[Enum.KeyCode.O] = "O",
-		[Enum.KeyCode.P] = "P",
-		[Enum.KeyCode.G] = "G",
-		[Enum.KeyCode.H] = "H",
-		[Enum.KeyCode.J] = "J",
-		[Enum.KeyCode.K] = "K",
-		[Enum.KeyCode.L] = "L",
-		[Enum.KeyCode.Z] = "Z",
-		[Enum.KeyCode.X] = "X",
-		[Enum.KeyCode.C] = "C",
-		[Enum.KeyCode.V] = "V",
-		[Enum.KeyCode.B] = "B",
-		[Enum.KeyCode.N] = "N",
-		[Enum.KeyCode.M] = "M",
-		[Enum.KeyCode.F] = "F",
-
-		-- modifier keys
-		[Enum.KeyCode.LeftShift] = "LS",
-		[Enum.KeyCode.RightShift] = "RS",
-		[Enum.KeyCode.LeftControl] = "LC",
-		[Enum.KeyCode.RightControl] = "RC",
-		[Enum.KeyCode.LeftAlt] = "LA",
-		[Enum.KeyCode.RightAlt] = "RA",
-		[Enum.KeyCode.CapsLock] = "CAPS",
-
-		-- function keys
-		[Enum.KeyCode.F1] = "F1",
-		[Enum.KeyCode.F2] = "F2",
-		[Enum.KeyCode.F3] = "F3",
-		[Enum.KeyCode.F4] = "F4",
-		[Enum.KeyCode.F5] = "F5",
-		[Enum.KeyCode.F6] = "F6",
-		[Enum.KeyCode.F7] = "F7",
-		[Enum.KeyCode.F8] = "F8",
-		[Enum.KeyCode.F9] = "F9",
-		[Enum.KeyCode.F10] = "F10",
-		[Enum.KeyCode.F11] = "F11",
-		[Enum.KeyCode.F12] = "F12",
-
-		-- number keys
-		[Enum.KeyCode.One] = "1",
-		[Enum.KeyCode.Two] = "2",
-		[Enum.KeyCode.Three] = "3",
-		[Enum.KeyCode.Four] = "4",
-		[Enum.KeyCode.Five] = "5",
-		[Enum.KeyCode.Six] = "6",
-		[Enum.KeyCode.Seven] = "7",
-		[Enum.KeyCode.Eight] = "8",
-		[Enum.KeyCode.Nine] = "9",
-		[Enum.KeyCode.Zero] = "0",
-
-		-- numpad keys
-		[Enum.KeyCode.KeypadOne] = "Num1",
-		[Enum.KeyCode.KeypadTwo] = "Num2",
-		[Enum.KeyCode.KeypadThree] = "Num3",
-		[Enum.KeyCode.KeypadFour] = "Num4",
-		[Enum.KeyCode.KeypadFive] = "Num5",
-		[Enum.KeyCode.KeypadSix] = "Num6",
-		[Enum.KeyCode.KeypadSeven] = "Num7",
-		[Enum.KeyCode.KeypadEight] = "Num8",
-		[Enum.KeyCode.KeypadNine] = "Num9",
-		[Enum.KeyCode.KeypadZero] = "Num0",
-
-		-- symbol keys
-		[Enum.KeyCode.Minus] = "-",
-		[Enum.KeyCode.Equals] = "=",
-		[Enum.KeyCode.Tilde] = "~",
-		[Enum.KeyCode.LeftBracket] = "[",
-		[Enum.KeyCode.RightBracket] = "]",
-		[Enum.KeyCode.Semicolon] = ";",
-		[Enum.KeyCode.Quote] = "'",
-		[Enum.KeyCode.BackSlash] = "\\",
-		[Enum.KeyCode.Comma] = ",",
-		[Enum.KeyCode.Period] = ".",
-		[Enum.KeyCode.Slash] = "/",
-		[Enum.KeyCode.Asterisk] = "*",
-		[Enum.KeyCode.Plus] = "+",
-		[Enum.KeyCode.Backquote] = "`",
-
-		-- special keys
-		[Enum.KeyCode.Space] = "SPC",
-		[Enum.KeyCode.Tab] = "Tab",
-		[Enum.KeyCode.Return] = "Ent",
-		[Enum.KeyCode.Backspace] = "BS",
-		[Enum.KeyCode.Escape] = "ESC",
-		[Enum.KeyCode.Insert] = "INS",
-		[Enum.KeyCode.Delete] = "Del",
-		[Enum.KeyCode.Home] = "Home",
-		[Enum.KeyCode.End] = "End",
-		[Enum.KeyCode.PageUp] = "PgUp",
-		[Enum.KeyCode.PageDown] = "PgDown",
-
-		-- arrow keys
-		[Enum.KeyCode.Up] = "↑",
-		[Enum.KeyCode.Down] = "↓",
-		[Enum.KeyCode.Left] = "←",
-		[Enum.KeyCode.Right] = "→",
-
-		-- mouse btns
-		[Enum.UserInputType.MouseButton1] = "MB1",
-		[Enum.UserInputType.MouseButton2] = "MB2",
-		[Enum.UserInputType.MouseButton3] = "MB3"
-	}
-
 	local defaultKey = props.State or props.Default or Enum.KeyCode.E
 
 	local keybind = Instance.new("Frame")
-	keybind.Name = props.Text or "Keybind"
+	keybind.Name = props.Name or props.Text or "Keybind"
 	keybind.BackgroundTransparency = 1
 	keybind.Size = UDim2.new(1, 0, 0, 24)
 	keybind.LayoutOrder = #tab.Elements + 1
@@ -1520,7 +1597,7 @@ function Kurai_Lib:_createKeybind(tabName, props, flag)
 
 	local label = Instance.new("TextLabel")
 	label.Name = "Label"
-	label.Text = props.Text or "Keybind"
+	label.Text = props.Name or props.Text or "Keybind"
 	label.Font = Enum.Font.RobotoMono
 	label.TextColor3 = Kurai_Lib.Theme.Text
 	label.TextSize = 16
@@ -1674,7 +1751,7 @@ function Kurai_Lib:_createTextField(tabName, props, flag)
 	if not tab then return nil end
 
 	local textField = Instance.new("Frame")
-	textField.Name = props.Text or "TextField"
+	textField.Name = props.Name or props.Text or "TextField"
 	textField.BackgroundTransparency = 1
 	textField.Size = UDim2.new(1, 0, 0, 50)
 	textField.LayoutOrder = #tab.Elements + 1
@@ -1682,7 +1759,7 @@ function Kurai_Lib:_createTextField(tabName, props, flag)
 
 	local label = Instance.new("TextLabel")
 	label.Name = "Label"
-	label.Text = props.Text or "Text Input"
+	label.Text = props.Name or props.Text or "Text Input"
 	label.Font = Enum.Font.RobotoMono
 	label.TextColor3 = Kurai_Lib.Theme.Text
 	label.TextSize = 16
