@@ -1249,7 +1249,11 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 				end
 
 				if props.Callback then
-					props.Callback(selectedOption, dropdown)
+					if not isMultipleOptions then
+						props.Callback(selectedOption[1] or "", dropdown)
+					else
+						props.Callback(selectedOption, dropdown)
+					end
 				end
 			end)
 		end
