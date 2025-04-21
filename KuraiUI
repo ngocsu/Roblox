@@ -88,8 +88,7 @@ function Kurai_Lib.new(options)
 	self.ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 	self.ScreenGui.ResetOnSpawn = false
 	self.ScreenGui.DisplayOrder = 1000
-	--self.ScreenGui.Parent = (isStudio and Player.PlayerGui) or (gethui and gethui()) or game:GetService("CoreGui")
-	self.ScreenGui.Parent = game:GetService("CoreGui")
+	self.ScreenGui.Parent = (isStudio and Player.PlayerGui) or (gethui and gethui()) or game:GetService("CoreGui")
 
 	self.Open = true
 
@@ -1288,7 +1287,6 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 			task.delay(0.2, function()
 				if not isOpen then
 					optionsFrame.Visible = false
-					optionsFrame.Parent = nil
 				end
 			end)
 		end
@@ -1349,10 +1347,6 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 	dropdown.AncestryChanged:Connect(function(_, parent)
 		if not parent and inputBeganConnection then
 			inputBeganConnection:Disconnect()
-
-			if optionsFrame and optionsFrame.Parent then
-				optionsFrame:Destroy()
-			end
 		end
 	end)
 
