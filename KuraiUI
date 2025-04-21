@@ -281,10 +281,16 @@ function Kurai_Lib:MinimizedWindowsFunc()
 		wait(.02)
 		self.MainWindow.ClipsDescendants = false
 	else
+		local imageSize = self.LogoIcon and 50 or 0
+		local textSize = self.GameTitle.TextBounds.X
+		if self.GameTitle.TextBounds.X < self.ScriptHubName.TextBounds.X then
+			textSize = self.ScriptHubName.TextBounds.X
+		end
+		
 		self.MainWindow.ClipsDescendants = true
 		self.MinimizeButtonImage.Image = "rbxassetid://7072720870"
 
-		TweenService:Create(self.MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, self.MainWindowSize.X.Offset, 0, self.TitleBar.Size.Y.Offset + 4)}):Play()
+		TweenService:Create(self.MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, imageSize + textSize + 70, 0, self.TitleBar.Size.Y.Offset + 4)}):Play()
 		wait(0.1)
 	end
 	Minimized = not Minimized  
@@ -493,23 +499,25 @@ function Kurai_Lib:_internal_initload(options)
 	end
 
 	self:_internal_createmainwindow(options)
-
-	Kurai_Lib.Tween(self.Loader, {BackgroundTransparency = 1})
-	-- [ fade out all text, images, frames ]
-	for _, child in next, self.Loader:GetDescendants() do
-		if child:IsA("GuiObject") then
-			Kurai_Lib.Tween(child, {BackgroundTransparency = 1})
-			if child:IsA("TextLabel") or child:IsA("TextButton") then
-				Kurai_Lib.Tween(child, {TextTransparency = 1})
-			end
-			if child:IsA("ImageLabel") or child:IsA("ImageButton") then
-				Kurai_Lib.Tween(child, {ImageTransparency = 1})
+	
+	if options.ShowLoader then
+		Kurai_Lib.Tween(self.Loader, {BackgroundTransparency = 1})
+		-- [ fade out all text, images, frames ]
+		for _, child in next, self.Loader:GetDescendants() do
+			if child:IsA("GuiObject") then
+				Kurai_Lib.Tween(child, {BackgroundTransparency = 1})
+				if child:IsA("TextLabel") or child:IsA("TextButton") then
+					Kurai_Lib.Tween(child, {TextTransparency = 1})
+				end
+				if child:IsA("ImageLabel") or child:IsA("ImageButton") then
+					Kurai_Lib.Tween(child, {ImageTransparency = 1})
+				end
 			end
 		end
-	end
 
-	task.wait(0.5)
-	self.Loader.Visible = false
+		task.wait(0.5)
+		self.Loader.Visible = false
+	end
 end
 
 function Kurai_Lib:_internal_setloaderstatus(text)
@@ -549,7 +557,8 @@ function Kurai_Lib:_internal_createmainwindow(options)
 	self.GameTitle.TextXAlignment = Enum.TextXAlignment.Left
 	self.GameTitle.BackgroundTransparency = 1
 	self.GameTitle.Position = UDim2.new(0, options.Icon and 50 or 5, 0, 5)
-	self.GameTitle.Size = UDim2.new(0, 300, 0, 18)
+	self.GameTitle.Size = UDim2.new(0, 0, 0, 18)
+	self.GameTitle.AutomaticSize = Enum.AutomaticSize.X
 	self.GameTitle.Parent = self.TitleBar
 
 	self.ScriptHubName = Instance.new("TextLabel")
@@ -561,7 +570,8 @@ function Kurai_Lib:_internal_createmainwindow(options)
 	self.ScriptHubName.TextXAlignment = Enum.TextXAlignment.Left
 	self.ScriptHubName.BackgroundTransparency = 1
 	self.ScriptHubName.Position = UDim2.new(0, options.Icon and 50 or 5, 0, 20)
-	self.ScriptHubName.Size = UDim2.new(0, 300, 0, 18)
+	self.ScriptHubName.Size = UDim2.new(0, 0, 0, 18)
+	self.ScriptHubName.AutomaticSize = Enum.AutomaticSize.X
 	self.ScriptHubName.Parent = self.TitleBar
 	
 	if options.Icon then
@@ -665,8 +675,11 @@ function Kurai_Lib:_internal_createmainwindow(options)
 	self.MinimizeButton.MouseButton1Click:Connect(function()
 		self:MinimizedWindowsFunc()
 	end)
+	
 	if options.MinimizeOnLoad then
-		self:MinimizedWindowsFunc()
+		task.delay(0.1, function()
+			self:MinimizedWindowsFunc()
+		end)
 	end
 	-- [ make draggable ]
 	self:Draggable(self.MainWindow, self.TitleBar)
