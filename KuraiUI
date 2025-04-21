@@ -1434,13 +1434,12 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 			end)
 
 			optionButton.MouseButton1Click:Connect(function()
-				if not isMultipleOptions then
-					table.clear(selectedOption)
-				end
-
 				if table.find(selectedOption, option) then
 					table.remove(selectedOption, table.find(selectedOption, option))
 				else
+					if not isMultipleOptions then
+						table.clear(selectedOption)
+					end
 					table.insert(selectedOption, option)
 				end
 
@@ -1450,7 +1449,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
 				for _, btn in pairs(optionsList:GetChildren()) do
 					if btn:IsA("TextButton") then
 						if table.find(selectedOption, btn.Name) then
-							Kurai_Lib.Tween(btn, {BackgroundColor3 = Kurai_Lib.Theme.Accent, BackgroundTransparency = 0})
+							Kurai_Lib.Tween(btn, {BackgroundColor3 = Kurai_Lib.Theme.Accent, BackgroundTransparency = 0.5})
 						else
 							Kurai_Lib.Tween(btn, {BackgroundColor3 = Kurai_Lib.Theme.Tab, BackgroundTransparency = 0.5})
 						end
