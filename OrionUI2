@@ -4,6 +4,13 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
+local CoreGui = game:GetService("CoreGui")
+local isStudio
+--local website = "github.com/Nebula-Softworks"
+
+if RunService:IsStudio() then
+	isStudio = true
+end
 
 local OrionLib = {
 	Elements = {},
@@ -41,23 +48,37 @@ Orion.Name = "Orion"
 Orion.ZIndexBehavior = 1
 Orion.DisplayOrder = 1000000
 
-if syn then
+if gethui then
+	Orion.Parent = gethui()
+elseif syn then
 	syn.protect_gui(Orion)
-	Orion.Parent = game.CoreGui
-else
-	Orion.Parent = game.CoreGui
+	Orion.Parent = CoreGui
+elseif not isStudio and CoreGui:FindFirstChild("RobloxGui") then
+	Orion.Parent = CoreGui:FindFirstChild("RobloxGui")
+elseif not isStudio then
+	Orion.Parent = CoreGui
+elseif isStudio then
+	Orion.Parent = LocalPlayer.PlayerGui
 end
 
 
-for _, Interface in ipairs(game.CoreGui:GetChildren()) do
-	if Interface.Name == Orion.Name and Interface ~= Orion then
-		Interface:Destroy()
+if gethui then
+	for _, Interface in ipairs(gethui():GetChildren()) do
+		if Interface.Name == Orion.Name and Interface ~= Orion then
+			Interface:Destroy()
+		end
+	end
+elseif not isStudio then
+	for _, Interface in ipairs(CoreGui:GetChildren()) do
+		if Interface.Name == Orion.Name and Interface ~= Orion then
+			Interface:Destroy()
+		end
 	end
 end
 
 
 function OrionLib:IsRunning()
-	return Orion.Parent == game:GetService("CoreGui")
+	return Orion.Parent ~= nil
 end
 
 local function AddConnection(Signal, Function)
