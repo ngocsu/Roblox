@@ -1297,7 +1297,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				SelectConfig.Callback = SelectConfig.Callback or function() end
 				SelectConfig.Flag = SelectConfig.Flag or nil
 				SelectConfig.Save = SelectConfig.Save or false
-
+				
 				local Select = {Value = SelectConfig.Default, Options = SelectConfig.Options, Buttons = {}, Toggled = false, Type = "Select", Save = SelectConfig.Save}
 				local MaxElements = 5
 
@@ -1427,7 +1427,7 @@ function OrionLib:MakeWindow(WindowConfig)
 						for _,v in pairs(Select.Buttons) do
 							v:Destroy()
 						end
-						print(#Select.Buttons)
+
 						table.clear(Select.Buttons)
 					end
 					Select.Options = Options
@@ -1514,7 +1514,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					for _,v in pairs(Select.Buttons) do
 						v:Destroy()
 					end
-					print(#Select.Buttons)
+
 					table.clear(Select.Buttons)
 
 					AddOptions(SearchOpt)
