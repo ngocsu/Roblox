@@ -1417,7 +1417,6 @@ function OrionLib:MakeWindow(WindowConfig)
 						for _,v in pairs(Select.Buttons) do
 							v:Destroy()
 						end
-						print(#Select.Buttons)
 						table.clear(Select.Buttons)
 					end
 					Select.Options = Options
@@ -1454,6 +1453,9 @@ function OrionLib:MakeWindow(WindowConfig)
 				end
 
 				function Select:SetSelect(Values)
+					if type(Value) != "string" and Value then
+						return
+					end
 
 					for i, v in pairs(Values) do
 						if Select.Buttons[v] ~= nil then
@@ -1498,7 +1500,6 @@ function OrionLib:MakeWindow(WindowConfig)
 					for _,v in pairs(Select.Buttons) do
 						v:Destroy()
 					end
-					print(#Select.Buttons)
 					table.clear(Select.Buttons)
 
 					AddOptions(SearchOpt)
