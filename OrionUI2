@@ -1424,7 +1424,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				end  
 
 				function Select:Set(Value)
-					if not table.find(Select.Options, Value) or Value == {} then
+					if type(Value) != "string" and Value then
 						return
 					end
 
@@ -1453,9 +1453,6 @@ function OrionLib:MakeWindow(WindowConfig)
 				end
 
 				function Select:SetSelect(Values)
-					if type(Value) != "string" and Value then
-						return
-					end
 
 					for i, v in pairs(Values) do
 						if Select.Buttons[v] ~= nil then
