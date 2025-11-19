@@ -1428,7 +1428,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				end  
 
 				function Select:Set(Value)
-					if type(Value) != "string" and Value then
+					if type(Value) ~= "string" and Value then
 						return
 					end
 
