@@ -1435,8 +1435,14 @@ function OrionLib:MakeWindow(WindowConfig)
 				end  
 
 				function Select:Set(Value)
-					if not table.find(Select.Options, Value) or Value == {} then
-						return
+					if type(Value) == "string" then
+						Value = {Value}
+					end
+
+					for i = #Value, 1, -1 do
+					    if not table.find(Select.Options, Value[i]) then
+					        table.remove(Value, i)
+					    end
 					end
 
 					local itemIX = table.find(Select.Value, Value)
