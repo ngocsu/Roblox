@@ -1287,7 +1287,11 @@ function OrionLib:MakeWindow(WindowConfig)
 				SelectConfig.Callback = SelectConfig.Callback or function() end
 				SelectConfig.Flag = SelectConfig.Flag or nil
 				SelectConfig.Save = SelectConfig.Save or false
-
+				if type(SelectConfig.Default) == "string" then
+					SelectConfig.Default = {SelectConfig.Default}
+				elseif type(SelectConfig.Default) == "table" then
+					SelectConfig.Default = {}
+				end
 				local Select = {Value = SelectConfig.Default, Options = SelectConfig.Options, Buttons = {}, Toggled = false, Type = "Select", Save = SelectConfig.Save}
 				local MaxElements = 5
 
