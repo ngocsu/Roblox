@@ -1598,6 +1598,12 @@ function OrionLib:MakeWindow(WindowConfig)
 
 					local strShow = ""
 					table.sort(Values)
+					for i = #Select.Value, 1, -1 do
+						if not listOpt[Select.Value[i]] then
+							table.remove(Select.Value, i)
+						end
+					end
+					
 					for k, v in pairs(Values) do
 						strShow = strShow  .. listOpt[v] .. ", "
 					end
