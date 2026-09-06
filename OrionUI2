@@ -1305,7 +1305,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				function Dropdown:Set(Value)
 					if not table.find(Dropdown.Options, Value) then
 						Dropdown.Value = ""
-						DropdownFrame.F.Selected.Text = listOpt[Dropdown.Value]
+						DropdownFrame.F.Selected.Text = listOpt[Dropdown.Value] or ""
 						for _, v in pairs(Dropdown.Buttons) do
 							TweenService:Create(v,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
 						end	
@@ -1313,7 +1313,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					end
 
 					Dropdown.Value = Value
-					DropdownFrame.F.Selected.Text = listOpt[Dropdown.Value]
+					DropdownFrame.F.Selected.Text = listOpt[Dropdown.Value] or ""
 
 					for _, v in pairs(Dropdown.Buttons) do
 						TweenService:Create(v,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
