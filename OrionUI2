@@ -2056,11 +2056,10 @@ function OrionLib:MakeWindow(WindowConfig)
 			end
 			
 			function ElementFunction:AddDivider()
-				-- 1. Tạo một container Frame để chứa đường kẻ (để căn lề đồng bộ với các phần tử khác)
 				SetChildren(SetProps(MakeElement("TFrame"), {
 					Name = "DividerFrame",
 					Parent = Container,
-					Size = UDim2.new(1, 0, 0, 3) -- Chiều cao bao gồm khoảng trống là 10px
+					Size = UDim2.new(1, 0, 0, 3)
 				}),{
 					SetProps(AddThemeObject(MakeElement("Frame"), "Stroke"), {
 						Name = "Line",
