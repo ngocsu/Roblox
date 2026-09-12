@@ -2053,7 +2053,22 @@ function OrionLib:MakeWindow(WindowConfig)
 					OrionLib.Flags[ColorpickerConfig.Flag] = Colorpicker
 				end
 				return Colorpicker
-			end  
+			end
+			
+			function ElementFunction:AddDivider()
+				-- 1. Tạo một container Frame để chứa đường kẻ (để căn lề đồng bộ với các phần tử khác)
+				SetChildren(SetProps(MakeElement("TFrame"), {
+					Name = "DividerFrame",
+					Parent = Container,
+					Size = UDim2.new(1, 0, 0, 3) -- Chiều cao bao gồm khoảng trống là 10px
+				}),{
+					SetProps(AddThemeObject(MakeElement("Frame"), "Stroke"), {
+						Name = "Line",
+						Position = UDim2.new(0, 0, 0.5, 0),
+						Size = UDim2.new(1, 0, 0, 1)
+					})
+				})
+			end
 			return ElementFunction   
 		end	
 
@@ -2062,6 +2077,10 @@ function OrionLib:MakeWindow(WindowConfig)
 		function ElementFunction:AddSection(SectionConfig)
 			SectionConfig.Name = SectionConfig.Name or "Section"
 			SectionConfig.Collapse = SectionConfig.Collapse or false
+			
+			local Click = SetProps(MakeElement("Button"), {
+				Size = UDim2.new(1, 0, 0, 16)
+			})
 			
 			local SectionFrame = SetChildren(SetProps(MakeElement("TFrame"), {
 				Size = UDim2.new(1, 0, 0, 0),
@@ -2072,6 +2091,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					Size = UDim2.new(1, 0, 0, 16),
 					Position = UDim2.new(0, 0, 0, 3),
 					Font = Enum.Font.GothamBold,
+					Name = "SectionName"
 				}), "TextDark"),
 				SetChildren(SetProps(MakeElement("TFrame"), {
 					AnchorPoint = Vector2.new(0, 0),
@@ -2082,7 +2102,8 @@ function OrionLib:MakeWindow(WindowConfig)
 					Name = "Holder"
 				}), {
 					MakeElement("List", 0, 6)
-				})
+				}),
+				Click
 			})
 			
 			--rbxasset://textures/WindControl/ArrowDown.png
@@ -2110,10 +2131,20 @@ function OrionLib:MakeWindow(WindowConfig)
 				end
 			end)
 			
+			AddConnection(Click.MouseButton1Click, function()
+				if btnCollapse.Visible then 
+					local oldVisible = SectionFrame.Holder.Visible
+					TweenService:Create(SectionFrame.Holder, TweenInfo.new(.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Visible = not oldVisible}):Play()
+					TweenService:Create(btnCollapse, TweenInfo.new(.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = oldVisible and 270 or 180}):Play()
+				end
+			end)
+			
 			AddConnection(btnCollapse.Activated, function()
-				local oldVisible = SectionFrame.Holder.Visible
-				TweenService:Create(SectionFrame.Holder, TweenInfo.new(.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Visible = not oldVisible}):Play()
-				TweenService:Create(btnCollapse, TweenInfo.new(.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = oldVisible and 270 or 180}):Play()
+				if btnCollapse.Visible then 
+					local oldVisible = SectionFrame.Holder.Visible
+					TweenService:Create(SectionFrame.Holder, TweenInfo.new(.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Visible = not oldVisible}):Play()
+					TweenService:Create(btnCollapse, TweenInfo.new(.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = oldVisible and 270 or 180}):Play()
+				end
 			end)
 
 			local SectionFunction = {}
